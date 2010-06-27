@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<app>
+  <id>vimcasts</id>
+  <name>Vimcasts</name>
+  <version>1.0</version>
+  <description>Vimcasts publishes regular screencasts about the Vim text editor. Episodes are kept short - typically less than 5 minutes, never more than 10. The aim is to provide something in each episode that you can take away and use. Vimcasts is produced by Drew Neil (aka nelstrom), who came to Vim from TextMate. He made the switch when starting work at a company that uses Linux workstations. His choice of text editor was influenced by colleagues.</description>
+  <thumb>http://claytron.com/static/vimcasts/vimcasts_thumb.png</thumb>
+  <repository>http://dir.boxee.tv/apps</repository>
+  <media>video</media>
+  <copyright>Clayton Parker (claytron)</copyright>
+  <email>robots@claytron.com</email>
+  <type>skin</type>
+  <platform>all</platform>
+  <minversion>0.9.11</minversion>
+  <startWindow>14000</startWindow>
+  <test-app>true</test-app>
+</app>
