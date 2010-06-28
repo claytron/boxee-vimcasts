@@ -2,6 +2,12 @@
 <window type="window" id="14000">
   <defaultcontrol always="true">100</defaultcontrol>
   <allowoverlay>no</allowoverlay>
+  <onload lang="python">
+    <![CDATA[
+import helpers
+helpers.cleanse_feed()
+]]>
+</onload>
   <controls>
     <control type="group">
       <control type="image">
