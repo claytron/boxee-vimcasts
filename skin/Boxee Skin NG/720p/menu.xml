@@ -71,5 +71,21 @@
         <content type="url" url="http://vimcasts.org/feeds/quicktime"></content>
       </control>
     </control>
+    <control type="group">
+      <control type="label">
+        <visible>true</visible>
+        <posx>40</posx>
+        <posy>165</posy>
+        <width>520</width>
+        <height>430</height>
+        <font>light23</font>
+        <align>left</align>
+        <aligny>top</aligny>
+        <label>[B]$INFO[Container(100).ListItem.property(title)][/B][CR]$INFO[Container(100).ListItem.property(description)]</label>
+        <background>white</background>
+        <textcolor>DD272727</textcolor>
+        <wrapmultiline>true</wrapmultiline>
+      </control>
+    </control>
   </controls>
 </window>
