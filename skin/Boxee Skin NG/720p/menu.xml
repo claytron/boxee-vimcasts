@@ -21,14 +21,14 @@ helpers.cleanse_feed()
         <posx>600</posx>
         <posy>0</posy>
         <width>680</width>
-        <height>700</height>
+        <height>720</height>
         <orientation>vertical</orientation>
-        <itemlayout width="640" height="60">
+        <itemlayout height="80">
           <control type="label">
             <posx>0</posx>
             <posy>0</posy>
             <width>640</width>
-            <height>120</height>
+            <height>90</height>
             <font>font30</font>
             <align>left</align>
             <aligny>center</aligny>
@@ -37,13 +37,13 @@ helpers.cleanse_feed()
             <wrapmultiline>true</wrapmultiline>
           </control>
         </itemlayout>
-        <focusedlayout width="640" height="60">
+        <focusedlayout height="80">
           <control type="label">
             <visible>!Control.HasFocus(100)</visible>
             <posx>0</posx>
             <posy>0</posy>
             <width>640</width>
-            <height>120</height>
+            <height>90</height>
             <font>font30b</font>
             <align>left</align>
             <aligny>center</aligny>
@@ -57,7 +57,7 @@ helpers.cleanse_feed()
             <posx>0</posx>
             <posy>0</posy>
             <width>640</width>
-            <height>120</height>
+            <height>90</height>
             <font>font30b</font>
             <align>left</align>
             <aligny>center</aligny>
