@@ -48,7 +48,7 @@ helpers.cleanse_feed()
             <align>left</align>
             <aligny>center</aligny>
             <label>$INFO[ListItem.Label]</label>
-            <textcolor>FF640E00</textcolor>
+            <textcolor>FF9f1801</textcolor>
             <selectedcolor>DD525252</selectedcolor>
             <wrapmultiline>true</wrapmultiline>
           </control>
@@ -62,7 +62,7 @@ helpers.cleanse_feed()
             <align>left</align>
             <aligny>center</aligny>
             <label>$INFO[ListItem.Label]</label>
-            <textcolor>FF640E00</textcolor>
+            <textcolor>FF9f1801</textcolor>
             <selectedcolor>DD525252</selectedcolor>
             <wrapmultiline>true</wrapmultiline>
           </control>
