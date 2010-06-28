@@ -68,7 +68,14 @@
             <scrollspeed>30</scrollspeed>
           </control>
         </focusedlayout>
-        <content type="url" url="http://vimcasts.org/feeds/quicktime"></content>
+        <content type="url" url="rss://vimcasts.org/feeds/quicktime/">
+          <onclick lang="python">
+            <![CDATA[
+import helpers
+helpers.play_video()
+]]>
+</onclick>
+        </content>
       </control>
     </control>
     <control type="group">
