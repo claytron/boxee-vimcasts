@@ -7,10 +7,10 @@ def play_video():
     player = mc.GetPlayer()
     feed_list = mc.GetWindow(14000).GetList(100)
     focused_item = feed_list.GetFocusedItem()
-    shows = feed_list.GetItems()
+    episodes = feed_list.GetItems()
     if player.IsPlaying():
         player.Stop()
-    player.Play(shows[focused_item])
+    player.Play(episodes[focused_item])
 
 
 def cleanse_feed():
