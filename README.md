@@ -1,4 +1,8 @@
-This is a Boxee app
+# Description
+
+![Vimcasts Logo](http://github.com/claytron/boxee-vimcasts/raw/master/thumb.png)
+
+This is a Boxee app that shows episodes from [vimcasts.org](http://vimcasts.org).
 
 # Deployment
 
