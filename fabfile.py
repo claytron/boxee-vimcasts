@@ -38,6 +38,8 @@ def release_claytron():
 
 def develop(status='on'):
     status = status.lower()
+
+    # Take care of the <test-app> setting in descriptor.xml
     desc_dom = _descriptor_xml()
     with open(DESCRIPTOR_FNAME, 'w') as xml_file:
         msg = "Turning %s <test-app> in descriptor.xml" % status
@@ -60,7 +62,8 @@ def develop(status='on'):
             app.appendChild(test_app)
             print msg
             _tidy_up(xml_file, desc_dom)
-    # TODO: handle removal of symlink when status='off'
+
+    # Take care of creating a symlink
     if PLATFORM in USERDATA_BASE:
         link_location = "%s/%s" % (USERDATA_BASE[PLATFORM], APP_NAME)
         if os.path.lexists(link_location):
