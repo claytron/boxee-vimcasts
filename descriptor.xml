@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <app>
   <id>vimcasts</id>
   <name>Vimcasts</name>
@@ -13,5 +13,4 @@
   <platform>all</platform>
   <minversion>0.9.11</minversion>
   <startWindow>14000</startWindow>
-  <test-app>false</test-app>
 </app>
