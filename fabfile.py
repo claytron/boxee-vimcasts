@@ -67,14 +67,18 @@ def develop(status='on'):
     if PLATFORM in USERDATA_BASE:
         link_location = "%s/%s" % (USERDATA_BASE[PLATFORM], APP_NAME)
         if os.path.lexists(link_location):
-            # TODO: check if it is the same, ask to remove it?
-            print "WARNING: Symlink to %s already exists" % link_location
-            #os.unlink(link_location)
-        elif os.path.exists(link_location):
-            # TODO: ask to remove it?
-            print "WARNING: Something is in the way %s" % link_location
-            #shutil.rmtree(link_location)
-        else:
+            if os.path.islink(link_location):
+                if status == "on":
+                    print "WARNING: Symlink to %s already exists" % link_location
+                    # TODO: check if it is the same, ask to remove it?
+                    #os.unlink(link_location)
+                elif status == "off":
+                    print "Removing symlink from %s" % link_location
+                    os.unlink(link_location)
+            else:
+                # TODO: handle this case properly
+                print "Can't create or remove symlink"
+        elif status == "on":
             print "Symlinking %s" % link_location
             os.symlink(os.path.abspath('vimcasts'), link_location)
     else:
