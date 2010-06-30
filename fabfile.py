@@ -17,6 +17,7 @@ USERDATA_BASE = {
         '~/Library/Application Support/BOXEE/UserData/apps')
 }
 PLATFORM = sys.platform
+DESCRIPTOR_FNAME = "vimcasts/descriptor.xml"
 APP_NAME = "vimcasts"
 
 
@@ -38,7 +39,7 @@ def release_claytron():
 def develop(status='on'):
     status = status.lower()
     desc_dom = _descriptor_xml()
-    with open('descriptor.xml', 'w') as xml_file:
+    with open(DESCRIPTOR_FNAME, 'w') as xml_file:
         msg = "Turning %s <test-app> in descriptor.xml" % status
         app = desc_dom.firstChild
         node_list = app.getElementsByTagName("test-app")
@@ -72,16 +73,17 @@ def develop(status='on'):
             #shutil.rmtree(link_location)
         else:
             print "Symlinking %s" % link_location
-            os.symlink(os.path.abspath('.'), link_location)
+            os.symlink(os.path.abspath('vimcasts'), link_location)
     else:
         print "WARNING: Cannot create symlink on this platform"
 
 
 def _descriptor_xml():
-    if os.path.exists("descriptor.xml"):
-        desc_dom = minidom.parse("descriptor.xml")
+    if os.path.exists(DESCRIPTOR_FNAME):
+        desc_dom = minidom.parse(DESCRIPTOR_FNAME)
         return desc_dom
     else:
+        print "ERROR: File not found: %s" % DESCRIPTOR_FNAME
         sys.exit(1)
 
 def _tidy_up(xml_file, dom_node):
