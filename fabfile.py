@@ -14,7 +14,7 @@ TIDY_OPTIONS = {
 USERDATA_BASE = {
     'linux': os.path.expanduser('~/.boxee/UserData/apps'),
     'darwin': os.path.expanduser(
-        '~/Library/Application Support/BOXEE/UserData/apps')
+        '~/Library/Application Support/BOXEE/UserData/apps'),
 }
 PLATFORM = sys.platform
 DESCRIPTOR_FNAME = "vimcasts/descriptor.xml"
@@ -69,7 +69,8 @@ def develop(status='on'):
         if os.path.lexists(link_location):
             if os.path.islink(link_location):
                 if status == "on":
-                    print "WARNING: Symlink to %s already exists" % link_location
+                    msg = "WARNING: Symlink to %s already exists"
+                    print msg % link_location
                     # TODO: check if it is the same, ask to remove it?
                     #os.unlink(link_location)
                 elif status == "off":
@@ -92,6 +93,7 @@ def _descriptor_xml():
     else:
         print "ERROR: File not found: %s" % DESCRIPTOR_FNAME
         sys.exit(1)
+
 
 def _tidy_up(xml_file, dom_node):
     document, errors = tidylib.tidy_document(dom_node.toxml(), TIDY_OPTIONS)
