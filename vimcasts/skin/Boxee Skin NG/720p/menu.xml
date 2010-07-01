@@ -32,7 +32,7 @@ helpers.cleanse_feed()
             <font>font30</font>
             <align>left</align>
             <aligny>center</aligny>
-            <label>$INFO[ListItem.Label]</label>
+            <label>#$INFO[ListItem.Episode] - $INFO[ListItem.Label]</label>
             <textcolor>FF000000</textcolor>
             <wrapmultiline>true</wrapmultiline>
           </control>
@@ -47,7 +47,7 @@ helpers.cleanse_feed()
             <font>font30b</font>
             <align>left</align>
             <aligny>center</aligny>
-            <label>$INFO[ListItem.Label]</label>
+            <label>#$INFO[ListItem.Episode] - $INFO[ListItem.Label]</label>
             <textcolor>FF9f1801</textcolor>
             <selectedcolor>DD525252</selectedcolor>
             <wrapmultiline>true</wrapmultiline>
@@ -61,7 +61,7 @@ helpers.cleanse_feed()
             <font>font30b</font>
             <align>left</align>
             <aligny>center</aligny>
-            <label>$INFO[ListItem.Label]</label>
+            <label>#$INFO[ListItem.Episode] - $INFO[ListItem.Label]</label>
             <textcolor>FF9f1801</textcolor>
             <selectedcolor>DD525252</selectedcolor>
             <wrapmultiline>true</wrapmultiline>

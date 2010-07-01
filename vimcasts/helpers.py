@@ -24,10 +24,7 @@ def cleanse_feed():
     for episode in feed_list.GetItems():
         video_base = "http://media.vimcasts.org/videos/"
         ep_path = episode.GetPath()
-        ep_title = episode.GetLabel()
         if ep_path.startswith(video_base):
-            ep_number = ep_path.split("/")[4]
-            episode.SetLabel("#%s - %s" % (ep_number, ep_title))
             keepers.append(episode)
         else:
             mc.LogDebug("vimcasts removing non video item: %s" % ep_path)
