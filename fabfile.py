@@ -7,6 +7,7 @@ import tidylib
 
 # clear the default settings
 tidylib.BASE_OPTIONS = {}
+
 TIDY_OPTIONS = {
     "add-xml-decl": 1,
     "input-xml": 1,
@@ -104,6 +105,7 @@ def develop(status='on'):
 ################
 # Helper Methods
 ################
+
 
 def _check_status(ignore):
     output = local("git status -s")
