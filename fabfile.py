@@ -93,30 +93,31 @@ def develop(status='on'):
 
     # Take care of the <test-app> setting in descriptor.xml
     desc_dom = _descriptor_xml()
-    with open(DESCRIPTOR_FNAME, 'w') as xml_file:
-        msg = "Turning %s <test-app> in descriptor.xml" % status
-        app = desc_dom.firstChild
-        node_list = app.getElementsByTagName("test-app")
-        if node_list.length:
-            if status == "off":
-                print msg
-                app.removeChild(node_list.item(0))
-                _tidy_up(xml_file, desc_dom)
-            else:
-                test_app = node_list.item(0)
-                test_app.firstChild.replaceWholeText(u"true")
-                print msg
-                _tidy_up(xml_file, desc_dom)
-        elif status == "on" and not node_list.length:
-            test_app = desc_dom.createElement("test-app")
-            truth = desc_dom.createTextNode(u"true")
-            test_app.appendChild(truth)
-            app.appendChild(test_app)
+    xml_file = open(DESCRIPTOR_FNAME, 'w')
+    msg = "Turning %s <test-app> in descriptor.xml" % status
+    app = desc_dom.firstChild
+    node_list = app.getElementsByTagName("test-app")
+    if node_list.length:
+        if status == "off":
+            print msg
+            app.removeChild(node_list.item(0))
+            _tidy_up(xml_file, desc_dom)
+        else:
+            test_app = node_list.item(0)
+            test_app.firstChild.replaceWholeText(u"true")
             print msg
             _tidy_up(xml_file, desc_dom)
-        # still need to write the file if opened it up
-        else:
-            _tidy_up(xml_file, desc_dom)
+    elif status == "on" and not node_list.length:
+        test_app = desc_dom.createElement("test-app")
+        truth = desc_dom.createTextNode(u"true")
+        test_app.appendChild(truth)
+        app.appendChild(test_app)
+        print msg
+        _tidy_up(xml_file, desc_dom)
+    # still need to write the file if opened it up
+    else:
+        _tidy_up(xml_file, desc_dom)
+    xml_file.close()
 
     # Take care of creating a symlink
     if PLATFORM in USERDATA_BASE:
