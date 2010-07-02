@@ -3,6 +3,7 @@ import sys
 from xml.dom import minidom
 from fabric.api import local
 from fabric.api import put
+from fabric.api import sudo
 from fabric.utils import abort
 from fabric.decorators import hosts
 import tidylib
@@ -60,25 +61,24 @@ def release_external(ignore="no"):
     print "Preparing third party repo release"
     develop("off")
     _check_status(ignore)
-    version = "x.x"
+    # grab the new external app version
+    version_file = open(EXT_REPO_VERSION)
+    version = version_file.read().strip()
+    version_file.close()
     print "Creating zip archive for the app"
     ext_app_id = "%s.%s" % (EXT_REPO_ID, APP_NAME)
     local("cp -r %s %s" % (APP_NAME, ext_app_id))
-    print "create third party descriptor xml"
-    desc_dom = _descriptor_xml("%s/descriptor.xml" % ext_app_id)
-    # remove/add repo id
-    # remove/add repo url
-    # change version
-    # create new dom with apps/app
-    # write out index.xml
+    _modify_descriptor(ext_app_id, version)
     print "update the index.xml file"
-    put("index.xml", EXT_REPO_DIR)
+    put("index.xml", ".")
+    sudo("mv index.xml %s/." % EXT_REPO_DIR)
     local("rm index.xml")
     archive_name = "%s-%s.zip" % (ext_app_id, version)
-    local(ZIP_CMD % (archive_name, APP_NAME))
+    local(ZIP_CMD % (archive_name, ext_app_id))
     print "push zip file into 'download' on remote server"
     push_zip_external(archive_name)
     local("rm -rf %s" % ext_app_id)
+    local("rm %s" % archive_name)
 
 
 @hosts(EXT_REPO_HOST)
@@ -165,3 +165,36 @@ def _descriptor_xml(descriptor=DESCRIPTOR_FNAME):
 def _tidy_up(xml_file, dom_node):
     document, errors = tidylib.tidy_document(dom_node.toxml(), TIDY_OPTIONS)
     xml_file.write(document)
+
+
+def _modify_descriptor(ext_app_id, version):
+    print "create third party descriptor xml"
+    desc_dom = _descriptor_xml("%s/descriptor.xml" % ext_app_id)
+    xml_file = open("%s/descriptor.xml" % ext_app_id, 'w')
+    app = desc_dom.firstChild
+    # Add a repo id node
+    repo_id_node = desc_dom.createElement("repository-id")
+    repo_id = desc_dom.createTextNode(EXT_REPO_ID)
+    repo_id_node.appendChild(repo_id)
+    app.appendChild(repo_id_node)
+    # Change the repo url
+    url_nodes = app.getElementsByTagName("repository")
+    repo_url_node = url_nodes.item(0)
+    repo_url_node.firstChild.replaceWholeText(EXT_REPO_URL)
+    # change version
+    version_node = app.getElementsByTagName("version").item(0)
+    version_node.firstChild.replaceWholeText(version)
+    # change app id
+    id_node = app.getElementsByTagName("id").item(0)
+    id_node.firstChild.replaceWholeText(ext_app_id)
+    # write out changes
+    _tidy_up(xml_file, desc_dom)
+    # create new dom with apps/app
+    impl = minidom.getDOMImplementation()
+    newdoc = impl.createDocument(None, "apps", None)
+    top_element = newdoc.documentElement
+    top_element.appendChild(app)
+    # write out index.xml
+    index_file = open("index.xml", "w")
+    _tidy_up(index_file, newdoc)
+    index_file.close()
