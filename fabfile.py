@@ -1,6 +1,7 @@
 import os
 import sys
 from xml.dom import minidom
+from fabric.utils import abort
 import tidylib
 
 # clear the default settings
@@ -91,8 +92,7 @@ def _descriptor_xml():
         desc_dom = minidom.parse(DESCRIPTOR_FNAME)
         return desc_dom
     else:
-        print "ERROR: File not found: %s" % DESCRIPTOR_FNAME
-        sys.exit(1)
+        abort("File not found: %s" % DESCRIPTOR_FNAME)
 
 
 def _tidy_up(xml_file, dom_node):
