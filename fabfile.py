@@ -106,12 +106,15 @@ def develop(status='on'):
                 test_app.firstChild.replaceWholeText(u"true")
                 print msg
                 _tidy_up(xml_file, desc_dom)
-        else:
+        elif status == "on" and not node_list.length:
             test_app = desc_dom.createElement("test-app")
             truth = desc_dom.createTextNode(u"true")
             test_app.appendChild(truth)
             app.appendChild(test_app)
             print msg
+            _tidy_up(xml_file, desc_dom)
+        # still need to write the file if opened it up
+        else:
             _tidy_up(xml_file, desc_dom)
 
     # Take care of creating a symlink
