@@ -79,6 +79,16 @@ def release_external(ignore="no"):
     push_zip_external(archive_name)
     local("rm -rf %s" % ext_app_id)
     local("rm %s" % archive_name)
+    # new version number (this is less than optimal)
+    version_file = open(EXT_REPO_VERSION, "r")
+    version = version_file.read().strip()
+    version_file.close()
+    major, minor = version.split('.')
+    minor = int(minor) + 1
+    new_version = "%s.%02d" % (major, minor)
+    version_file = open(EXT_REPO_VERSION, 'w')
+    version_file.write(new_version)
+    version_file.close()
 
 
 @hosts(EXT_REPO_HOST)
