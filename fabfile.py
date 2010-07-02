@@ -41,8 +41,8 @@ EXT_REPO_DIR = "/usr/local/www/data/boxee"
 
 def release_official(ignore="no"):
     print "Preparing release for Boxee blessed repo"
-    _check_status(ignore)
     develop('off')
+    _check_status(ignore)
     print "Creating zip archive for the app"
     desc_dom = _descriptor_xml()
     versions = desc_dom.firstChild.getElementsByTagName("version")
