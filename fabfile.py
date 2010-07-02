@@ -1,6 +1,7 @@
 import os
 import sys
 from xml.dom import minidom
+from fabric.api import local
 from fabric.utils import abort
 import tidylib
 
@@ -22,11 +23,19 @@ DESCRIPTOR_FNAME = "vimcasts/descriptor.xml"
 APP_NAME = "vimcasts"
 
 
-def release():
-    print "boxee release"
-    print "test for local changes and abort if there are some (git)"
-    print "test for <test-app> setting"
-    print "create zip ignoring hidden files, etc."
+def release_official(ignore="no"):
+    print "Preparing release for Boxee blessed repo"
+    _check_status(ignore)
+    develop('off')
+    print "Creating zip archive for the app"
+    desc_dom = _descriptor_xml()
+    versions = desc_dom.firstChild.getElementsByTagName("version")
+    if not versions:
+        abort("ERROR: No version number specified")
+    version = versions[0].firstChild.data
+    archive_name = "%s-%s.zip" % (APP_NAME, version)
+    # output to the console
+    local(ZIP_CMD % (archive_name, APP_NAME))
 
 
 def release_claytron():
@@ -85,6 +94,13 @@ def develop(status='on'):
             os.symlink(os.path.abspath('vimcasts'), link_location)
     else:
         print "WARNING: Cannot create symlink on this platform"
+
+
+def _check_status(ignore):
+    output = local("git status -s")
+    msg = "There are local changes, commit or revert before continuing"
+    if output and ignore != "ignore":
+        abort(msg)
 
 
 def _descriptor_xml():
