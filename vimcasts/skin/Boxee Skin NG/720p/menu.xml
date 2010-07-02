@@ -87,7 +87,7 @@ helpers.play_video()
         <font>light23</font>
         <align>left</align>
         <aligny>top</aligny>
-        <label>[B]$INFO[Container(100).ListItem.Label][/B][CR]($INFO[Container(100).ListItem.Date][CR][CR]$INFO[Container(100).ListItem.property(description)]</label>
+        <label>[B]$INFO[Container(100).ListItem.Label][/B][CR]$INFO[Container(100).ListItem.Date][CR][CR]$INFO[Container(100).ListItem.property(description)]</label>
         <background>white</background>
         <textcolor>DD272727</textcolor>
         <wrapmultiline>true</wrapmultiline>
