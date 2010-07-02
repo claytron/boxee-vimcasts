@@ -21,6 +21,7 @@ USERDATA_BASE = {
 PLATFORM = sys.platform
 DESCRIPTOR_FNAME = "vimcasts/descriptor.xml"
 APP_NAME = "vimcasts"
+ZIP_CMD = "zip -r %s %s -x@exclude.lst"
 
 
 def release_official(ignore="no"):
