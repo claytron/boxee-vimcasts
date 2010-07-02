@@ -2,7 +2,9 @@ import os
 import sys
 from xml.dom import minidom
 from fabric.api import local
+from fabric.api import put
 from fabric.utils import abort
+from fabric.decorators import hosts
 import tidylib
 
 # clear the default settings
@@ -23,6 +25,12 @@ PLATFORM = sys.platform
 DESCRIPTOR_FNAME = "vimcasts/descriptor.xml"
 APP_NAME = "vimcasts"
 ZIP_CMD = "zip -r %s %s -x@exclude.lst"
+# external repo settings
+EXT_REPO_ID = "com.claytron"
+EXT_REPO_URL = "http://claytron.com/static/boxee"
+EXT_REPO_VERSION = "ext_version.txt"
+EXT_REPO_HOST = "zap239.sixfeetup.com"
+EXT_REPO_DIR = "/usr/local/www/data/boxee"
 
 ##########
 # Commands
@@ -44,12 +52,37 @@ def release_official(ignore="no"):
     local(ZIP_CMD % (archive_name, APP_NAME))
 
 
-def release_claytron():
-    print "claytron release"
-    print "bump version"
+@hosts(EXT_REPO_HOST)
+def release_external(ignore="no"):
+    print "Preparing third party repo release"
+    develop("off")
+    _check_status(ignore)
+    version = "x.x"
+    print "Creating zip archive for the app"
+    ext_app_id = "%s.%s" % (EXT_REPO_ID, APP_NAME)
+    local("cp -r %s %s" % (APP_NAME, ext_app_id))
     print "create third party descriptor xml"
-    print "push zip file into 'download' on remote server"
+    desc_dom = _descriptor_xml("%s/descriptor.xml" % ext_app_id)
+    # remove/add repo id
+    # remove/add repo url
+    # change version
+    # create new dom with apps/app
+    # write out index.xml
     print "update the index.xml file"
+    put("index.xml", EXT_REPO_DIR)
+    local("rm index.xml")
+    archive_name = "%s-%s.zip" % (ext_app_id, version)
+    local(ZIP_CMD % (archive_name, APP_NAME))
+    print "push zip file into 'download' on remote server"
+    push_zip_external(archive_name)
+    local("rm -rf %s" % ext_app_id)
+
+
+@hosts(EXT_REPO_HOST)
+def push_zip_external(filename=None):
+    if filename is None:
+        abort("You must specify a file to deploy")
+    put(filename, "%s/download/." % EXT_REPO_DIR)
 
 
 def develop(status='on'):
