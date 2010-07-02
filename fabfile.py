@@ -23,6 +23,10 @@ DESCRIPTOR_FNAME = "vimcasts/descriptor.xml"
 APP_NAME = "vimcasts"
 ZIP_CMD = "zip -r %s %s -x@exclude.lst"
 
+##########
+# Commands
+##########
+
 
 def release_official(ignore="no"):
     print "Preparing release for Boxee blessed repo"
@@ -96,6 +100,10 @@ def develop(status='on'):
     else:
         print "WARNING: Cannot create symlink on this platform"
 
+
+################
+# Helper Methods
+################
 
 def _check_status(ignore):
     output = local("git status -s")
