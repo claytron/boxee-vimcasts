@@ -17,6 +17,7 @@ TIDY_OPTIONS = {
     "wrap": 0,
 }
 USERDATA_BASE = {
+    # XXX: need to test on linux
     'linux': os.path.expanduser('~/.boxee/UserData/apps'),
     'darwin': os.path.expanduser(
         '~/Library/Application Support/BOXEE/UserData/apps'),
@@ -24,6 +25,7 @@ USERDATA_BASE = {
 PLATFORM = sys.platform
 DESCRIPTOR_FNAME = "vimcasts/descriptor.xml"
 APP_NAME = "vimcasts"
+# XXX: Is the cross platform?
 ZIP_CMD = "zip -r %s %s -x@exclude.lst"
 # external repo settings
 EXT_REPO_ID = "com.claytron"
