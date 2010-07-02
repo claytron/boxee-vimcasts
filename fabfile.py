@@ -112,12 +112,12 @@ def _check_status(ignore):
         abort(msg)
 
 
-def _descriptor_xml():
-    if os.path.exists(DESCRIPTOR_FNAME):
-        desc_dom = minidom.parse(DESCRIPTOR_FNAME)
+def _descriptor_xml(descriptor=DESCRIPTOR_FNAME):
+    if os.path.exists(descriptor):
+        desc_dom = minidom.parse(descriptor)
         return desc_dom
     else:
-        abort("File not found: %s" % DESCRIPTOR_FNAME)
+        abort("File not found: %s" % descriptor)
 
 
 def _tidy_up(xml_file, dom_node):
