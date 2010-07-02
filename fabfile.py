@@ -51,7 +51,8 @@ def release_official(ignore="no"):
     version = versions[0].firstChild.data
     archive_name = "%s-%s.zip" % (APP_NAME, version)
     # output to the console
-    local(ZIP_CMD % (archive_name, APP_NAME))
+    output = local(ZIP_CMD % (archive_name, APP_NAME))
+    print output
 
 
 @hosts(EXT_REPO_HOST)
