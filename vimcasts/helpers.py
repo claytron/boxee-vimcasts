@@ -2,10 +2,7 @@ import mc
 
 
 def cleanse_feed():
-    """Modify the feed to do two things.
-
-    - Make sure that non video items don't show up in the UI.
-    - Add the episode number to the "label"
+    """Remove items from the feed that are not videos
     """
     feed_list = mc.GetWindow(14000).GetList(9000)
     keepers = mc.ListItems()
