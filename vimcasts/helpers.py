@@ -7,7 +7,7 @@ def cleanse_feed():
     - Make sure that non video items don't show up in the UI.
     - Add the episode number to the "label"
     """
-    feed_list = mc.GetWindow(14000).GetList(100)
+    feed_list = mc.GetWindow(14000).GetList(9000)
     keepers = mc.ListItems()
     for episode in feed_list.GetItems():
         video_base = "http://media.vimcasts.org/videos/"

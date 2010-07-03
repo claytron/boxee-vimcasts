@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <window type="window" id="14000">
-  <defaultcontrol always="true">100</defaultcontrol>
+  <defaultcontrol always="true">9000</defaultcontrol>
   <allowoverlay>no</allowoverlay>
   <onload lang="python">
     <![CDATA[
@@ -17,7 +17,7 @@ helpers.cleanse_feed()
         <height>720</height>
         <texture>background.png</texture>
       </control>
-      <control type="list" id="100">
+      <control type="list" id="9000">
         <posx>600</posx>
         <posy>0</posy>
         <width>680</width>
@@ -39,7 +39,7 @@ helpers.cleanse_feed()
         </itemlayout>
         <focusedlayout height="80">
           <control type="label">
-            <visible>!Control.HasFocus(100)</visible>
+            <visible>!Control.HasFocus(9000)</visible>
             <posx>0</posx>
             <posy>0</posy>
             <width>640</width>
@@ -53,7 +53,7 @@ helpers.cleanse_feed()
             <wrapmultiline>true</wrapmultiline>
           </control>
           <control type="label">
-            <visible>Control.HasFocus(100)</visible>
+            <visible>Control.HasFocus(9000)</visible>
             <posx>0</posx>
             <posy>0</posy>
             <width>640</width>
@@ -80,7 +80,7 @@ helpers.cleanse_feed()
         <font>light23</font>
         <align>left</align>
         <aligny>top</aligny>
-        <label>[B]$INFO[Container(100).ListItem.Label][/B][CR]$INFO[Container(100).ListItem.Date][CR][CR]$INFO[Container(100).ListItem.property(description)]</label>
+        <label>[B]$INFO[Container(9000).ListItem.Label][/B][CR]$INFO[Container(9000).ListItem.Date][CR][CR]$INFO[Container(9000).ListItem.property(description)]</label>
         <background>white</background>
         <textcolor>DD272727</textcolor>
         <wrapmultiline>true</wrapmultiline>
