@@ -67,14 +67,7 @@ helpers.cleanse_feed()
             <wrapmultiline>true</wrapmultiline>
           </control>
         </focusedlayout>
-        <content type="url" url="rss://vimcasts.org/feeds/boxee-quicktime/">
-          <onclick lang="python">
-            <![CDATA[
-import helpers
-helpers.play_video()
-]]>
-</onclick>
-        </content>
+        <content type="url" url="rss://vimcasts.org/feeds/boxee-quicktime/"/>
       </control>
     </control>
     <control type="group">
