@@ -18,8 +18,7 @@ TIDY_OPTIONS = {
     "wrap": 0,
 }
 USERDATA_BASE = {
-    # XXX: need to test on linux
-    'linux': os.path.expanduser('~/.boxee/UserData/apps'),
+    'linux2': os.path.expanduser('~/.boxee/UserData/apps'),
     'darwin': os.path.expanduser(
         '~/Library/Application Support/BOXEE/UserData/apps'),
 }
