@@ -3,6 +3,7 @@ import sys
 from xml.dom import minidom
 from fabric.api import local
 from fabric.api import put
+from fabric.api import get
 from fabric.api import sudo
 from fabric.utils import abort
 from fabric.decorators import hosts
@@ -176,6 +177,7 @@ def _tidy_up(xml_file, dom_node):
     xml_file.write(document)
 
 
+@hosts(EXT_REPO_HOST)
 def _modify_descriptor(ext_app_id, version):
     print "create third party descriptor xml"
     desc_dom = _descriptor_xml("%s/descriptor.xml" % ext_app_id)
@@ -198,12 +200,22 @@ def _modify_descriptor(ext_app_id, version):
     id_node.firstChild.replaceWholeText(ext_app_id)
     # write out changes
     _tidy_up(xml_file, desc_dom)
-    # create new dom with apps/app
-    impl = minidom.getDOMImplementation()
-    newdoc = impl.createDocument(None, "apps", None)
-    top_element = newdoc.documentElement
-    top_element.appendChild(app)
+    # modify the existing index.xml and add our new app
+    get("%s/index.xml" % EXT_REPO_DIR, ".")
+    ext_desc_dom = _descriptor_xml("index.xml")
+    ext_app_node = ext_desc_dom.firstChild
+    ext_apps = ext_desc_dom.getElementsByTagName("app")
+    orig_app_node = None
+    # find our app
+    for ext_app in ext_apps:
+        app_id = ext_app.getElementsByTagName("id")[0].firstChild.data
+        if app_id == ext_app_id:
+            orig_app_node = ext_app
+    # remove app from current xml file
+    if orig_app_node is not None:
+        ext_app_node.removeChild(orig_app_node)
+    ext_app_node.appendChild(app)
     # write out index.xml
     index_file = open("index.xml", "w")
-    _tidy_up(index_file, newdoc)
+    _tidy_up(index_file, ext_desc_dom)
     index_file.close()
