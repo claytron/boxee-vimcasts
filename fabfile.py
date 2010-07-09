@@ -1,16 +1,24 @@
 import os
 import sys
+import shutil
 from xml.dom import minidom
 from fabric.api import local
 from fabric.api import put
 from fabric.api import get
 from fabric.api import sudo
+from fabric.api import prompt
 from fabric.utils import abort
 from fabric.decorators import hosts
 import tidylib
 
 # clear the default settings
 tidylib.BASE_OPTIONS = {}
+TRUISMS = [
+    "y",
+    "yes",
+    "true",
+    "1"
+]
 
 TIDY_OPTIONS = {
     "add-xml-decl": 1,
@@ -132,22 +140,29 @@ def develop(status='on'):
     # Take care of creating a symlink
     if PLATFORM in USERDATA_BASE:
         link_location = "%s/%s" % (USERDATA_BASE[PLATFORM], APP_NAME)
+        vimcasts_location = os.path.abspath('vimcasts')
         if os.path.lexists(link_location):
             if os.path.islink(link_location):
-                if status == "on":
-                    msg = "WARNING: Symlink to %s already exists"
-                    print msg % link_location
-                    # TODO: check if it is the same, ask to remove it?
-                    #os.unlink(link_location)
+                if os.readlink(link_location) != vimcasts_location and \
+                   status == "on":
+                    import pdb; pdb.set_trace()
+                    answer = prompt("Remove symlink %s?" % link_location)
+                    if answer in TRUISMS:
+                        os.unlink(link_location)
+                        print "Symlink %s removed" % link_location
+                        develop('on')
                 elif status == "off":
                     print "Removing symlink from %s" % link_location
                     os.unlink(link_location)
             else:
-                # TODO: handle this case properly
-                print "Can't create or remove symlink"
+                answer = prompt("Remove %s?" % link_location)
+                if answer.lower() in TRUISMS:
+                    shutil.rmtree(link_location)
+                    print "%s removed" % link_location
+                    develop('on')
         elif status == "on":
             print "Symlinking %s" % link_location
-            os.symlink(os.path.abspath('vimcasts'), link_location)
+            os.symlink(vimcasts_location, link_location)
     else:
         print "WARNING: Cannot create symlink on this platform"
 
