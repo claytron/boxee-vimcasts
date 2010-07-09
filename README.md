@@ -4,6 +4,8 @@
 
 This is a Boxee app that shows episodes from [vimcasts.org](http://vimcasts.org). Report any issues in the [issue tracker](http://github.com/claytron/boxee-vimcasts/issues).
 
+This application was written entirely with the [vim](http://www.vim.org) text editor, of course!
+
 # Development and Deployment
 
 ## Requirements and installation
